@@ -25,22 +25,15 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   var locationInputColor = Colors.blue;
   PlaceLocation? _pickedLocation;
 
-  void _selectImage(File? pickedImage, bool response) {
-    if (response == false) {
-      setState(() {
-        imageInputColor = Colors.red;
-      });
-      return;
-    } else {
-      setState(() {
-        imageInputColor = Colors.blue;
-      });
-    }
+  void _selectImage(File pickedImage) {
     _pickedImage = pickedImage;
   }
 
   void _selectPlace(double lat, double lng) {
-    _pickedLocation = PlaceLocation(latitude: lat, longitude: lng);
+    _pickedLocation = PlaceLocation(
+      latitude: lat,
+      longitude: lng,
+    );
   }
 
   void _savePlace() {
