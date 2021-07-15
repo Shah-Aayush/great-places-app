@@ -47,7 +47,7 @@ class _ImageInputState extends State<ImageInput> {
 
       // File(imageFile.path).copy(appDir.path);
 
-      widget.onSelectImage(savedImage,true);
+      widget.onSelectImage(savedImage);
     } else {
       setState(() {
         textWidgetForImageInput = Text(
@@ -56,7 +56,6 @@ class _ImageInputState extends State<ImageInput> {
           style: TextStyle(color: Colors.red),
         );
       });
-      widget.onSelectImage(null,false);
     }
   }
 

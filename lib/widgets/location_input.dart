@@ -1,6 +1,10 @@
+// import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:great_places/helpers/get_current_loc.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 import '../helpers/location_helper.dart';
 import '../screens/maps_screen.dart';
@@ -33,14 +37,42 @@ class _LocationInputState extends State<LocationInput> {
     });
   }
 
+  Future<LocationData> getCurrentUserLocation() async {
+    print('gcul 1');
+    Location _userLocation = await Location();
+    print('gcul 2');
+    LocationData ld = await _userLocation.getLocation();
+    print('gcul 3');
+    return ld;
+  }
+
   Future<void> _getCurrentUserLocation() async {
     print('getCurrentlocation called.');
+    var locData;
     try {
-      final locData = await Location().getLocation();
+      //1
+      // locData = await Location().getLocation().catchError(
+      //   (error) {
+      //     print('error message from getting location : ${error.toString()}');
+      //   },
+      // );
+      //2
+      // locData = await Location().getLocation();
+      //3
+      locData = await getCurrentUserLocation();
+
+      // if (Platform.isIOS) {
+      //   locData =
+      //       Provider.of<GetCurrentLoc>(context, listen: false).getLocation();
+      // } else {
+      //   locData = await Location().getLocation();
+      // }
+
       // final locData = await Location().getLocation();
       print('locData is this :  $locData');
       if (locData.latitude == null) {
         print('null value of latitude!');
+        widget.onSelectPlace(locData.latitude, locData.longitude);
         return;
       }
       print('current location : $locData.latitude $locData.longitude');
@@ -51,9 +83,10 @@ class _LocationInputState extends State<LocationInput> {
       widget.onSelectPlace(locData.latitude, locData.longitude);
     } catch (error) {
       print('error occurred : ${error.toString()}');
+      widget.onSelectPlace(locData.latitude, locData.longitude);
       return;
     }
-    print('Location Successfully fetched.');
+    print('Location fetching method completed.');
   }
 
   Future<void> _selectOnMap() async {
@@ -83,6 +116,8 @@ class _LocationInputState extends State<LocationInput> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<GetCurrentLoc>(context, listen: false).fetchLocation();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
