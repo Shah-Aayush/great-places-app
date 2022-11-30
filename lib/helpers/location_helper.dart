@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-const GOOGLE_API_KEY_FOR_IOS = 'AIzaSyAPFnjp5RJx6ICZQwHuP4QZgON27tBCYng';
-const GOOGLE_API_KEY_FOR_ANDROID = 'AIzaSyD31Jy3QQ8LjrkKqFnVFwq0Jh6IvoZ9aIE';
+const GOOGLE_API_KEY_FOR_IOS = '<API-KEY-IOS>';
+const GOOGLE_API_KEY_FOR_ANDROID = '<API-KEY-ANDROID>';
 // const GOOGLE_API_KEY = 'AIzaSyCHP0huc8S7iPbMkNEKfOpuZ66iH40b6aY';
 
 class LocationHelper {
